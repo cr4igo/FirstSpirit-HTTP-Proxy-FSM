@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+    <name>${project.name}</name>
+    <version>${project.version}</version>
+    <description>${project.description}</description>
+    <vendor>Markus Priegl</vendor>
+
+    <components>
+        <web-app scopes="global,project">
+            <name>HttpProxy</name>
+			<displayname>HttpProxy</displayname>
+            <description>httpproxy</description>
+            <class>net.cr4igo.firstspirit.modules.httpproxy.configuration.WebApp</class>
+            <web-xml>web/web.xml</web-xml>
+            <resources>
+                <resource name="lib-httpproxy">libs/${resulting.jar.name}.jar</resource>
+            </resources>
+            <web-resources>
+				${module.dependency.list.of.resources}
+                <resource name="lib-httpproxy">libs/${resulting.jar.name}.jar</resource>
+            </web-resources>
+        </web-app>
+    </components>
+
+</module>

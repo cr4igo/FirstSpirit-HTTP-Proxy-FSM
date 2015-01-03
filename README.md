@@ -1,58 +1,16 @@
-Smiley's HTTP Proxy Servlet
+FirstSpirit-AJAX-HTTP-Proxy forked from Smiley's HTTP Proxy Servlet
 ===========================
 
-This is an HTTP Proxy (aka gateway) in the form of a Java servlet.  An HTTP proxy is useful for AJAX applications to communicate with web accessible services on hosts other than where the web application is hosted.
+This is an HTTP Proxy (aka gateway) in the form of a Java servlet bundled within a FirstSpirit(TM) Module.  An HTTP proxy is useful for AJAX applications to communicate with web accessible services on hosts other than where the web application is hosted.
 
-This is hardly the first proxy, so why did I write it and thus why might you use it?
+Its heavily based on Smiley's HTTP Proxy Servlet https://github.com/mitre/HTTP-Proxy-Servlet . Many thanks to it's contributors!
+More details about the proxy can be found in the originally project https://github.com/mitre/HTTP-Proxy-Servlet .
 
- * It's simple -- a single source file implementation
- * It's tested -- have confidence it works [![Build Status](https://travis-ci.org/mitre/HTTP-Proxy-Servlet.png)](https://travis-ci.org/mitre/HTTP-Proxy-Servlet)
- * It's securable -- via Java EE web.xml or via a servlet filter such as [Spring-Security]([http://static.springsource.org/spring-security/site/)
- * It's extendible -- via simple class extension
- * It's embeddable -- into your Java web application making testing your app easier
-
-I have seen many quick'n'dirty proxies posted in source form on the web such as in a blog.  I've found such proxies to support a limited HTTP subset, such as only a GET request, or to suffer other implementation problems such as performance issues or URL escaping bugs.  Disappointed at the situation, I set out to create a simple one that works well and that is well tested so I know it works.  I suggest you use a well tested proxy instead of something non-tested that is perhaps better described as a proof-of-concept.
-
-This proxy depends on [Apache HttpClient](http://hc.apache.org/httpcomponents-client-ga/), which offers another point of extension for this proxy.  At some point I may write an alternative that uses the JDK and thus doesn't have any dependencies, which is desirable. In the mean time, you'll have to add the jar files for this and its dependencies:
-
-     +- org.apache.httpcomponents:httpclient:jar:4.2.5:compile
-        +- org.apache.httpcomponents:httpcore:jar:4.2.4:compile
-        |  +- commons-logging:commons-logging:jar:1.1.1:compile
-        |  \- commons-codec:commons-codec:jar:1.6:compile
-
-As of version 1.4 of the proxy, it will by default recognize "http.proxy" and
- most other standard Java system properties. This is inherited from HC's
- new [SystemDefaultHttpClient](http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/impl/client/SystemDefaultHttpClient.html). You can still use HC 4.1, however, as java
- reflection is used to support both 4.1, which doesn't have that class, and 4.2+.
- Tests pass with 4.3 too.
-
-As of version 1.5 of the proxy, there is the ability to parameterize your proxy URL, allowing you to use
-the same web.xml servlet specification for multiple target servers. It follows the
-[URI Template RFC, Level 1](http://tools.ietf.org/html/rfc6570). Special query 
-parameters (see the examples below) sent from the client to the ProxyServlet will 
-map to the matching URL template, replacing arguments in the proxy's targetUri as
-specified in the web.xml.  To use this, you must use a subclass of the base servlet.
-IMPORTANT! The template substitutions must be placed in the query string, even when using
-HTTP POST. Other application parameters can be in your POSTed url-encoded-form string; just not
-proxyArgs.
 
 Build & Installation
 ------------
 
-Simply build the jar using "mvn package" at the command line.
-The jar is built to "target/smiley-http-proxy-servlet-VERSION.jar".
-You don't have to build the jar if you aren't modifying the code, since released
-versions are deployed to maven-central.  If you are using maven then you can
-add this to your dependencies in your pom like so:
-(Note: the version below is not necessarily the latest.)
-
-    <dependency>
-        <groupId>org.mitre.dsmiley.httpproxy</groupId>
-        <artifactId>smiley-http-proxy-servlet</artifactId>
-        <version>1.5</version>
-    </dependency>
-
-Ivy and other dependency managers can be used as well.
+Simply build the FirstSpirit(TM) Module (.fsm) using "mvn install" at the command line.
 
 
 Configuration
@@ -101,7 +59,4 @@ them from the normal query parameters in case of a conflict.:
       <url-pattern>/mywebapp/cluster/*</url-pattern>
     </servlet-mapping>
 
-If you are using SpringMVC, then an alternative is to use its
-[ServletWrappingController](http://static.springsource.org/spring/docs/3.0.x/api/org/springframework/web/servlet/mvc/ServletWrappingController.html)
-so that you can configure this servlet via Spring, which is supremely flexible, instead of having to modify your web.xml. However, note that some
-customization may be needed to divide the URL at the proxied portion; see [Issue#15](/dsmiley/HTTP-Proxy-Servlet/issues/15).
+

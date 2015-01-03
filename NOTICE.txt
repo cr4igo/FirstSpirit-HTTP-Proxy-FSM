@@ -1,3 +1,10 @@
+FirstSpirit(TM) AJAX HTTP Proxy
+Copyright 2015, Markus Priegl
+
+Fork of Smiley's Proxy Servlet
+
+---------------------------------------------
+
 Smiley's Proxy Servlet
 Copyright 2011, The MITRE Corporation
 
